@@ -13,7 +13,7 @@ Inputs:
 Example:
 ```
 module "snapshot_label" {
-    source = "../null-label"
+    source = "https://github.com/jon-butterworth/tf-null-label"
     attributes = ["final", "snapshot"]
     context = module.this.context
 }
