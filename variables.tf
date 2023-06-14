@@ -2,9 +2,9 @@ variable "context" {
   type = any
   default = {
     enabled             = true
-    namespace           = null
+    company           = null
     tenant              = null
-    environment         = null
+    region         = null
     stage               = null
     name                = null
     delimiter           = null
@@ -36,7 +36,7 @@ variable "enabled" {
   default     = null
 }
 
-variable "namespace" {
+variable "company" {
   type        = string
   default     = null
 }
@@ -46,7 +46,7 @@ variable "tenant" {
   default     = null
 }
 
-variable "environment" {
+variable "region" {
   type        = string
   default     = null
 }

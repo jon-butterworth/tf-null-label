@@ -10,16 +10,16 @@ output "enabled" {
   value       = local.enabled
 }
 
-output "namespace" {
-  value       = local.enabled ? local.namespace : ""
+output "company" {
+  value       = local.enabled ? local.company : ""
 }
 
 output "tenant" {
   value       = local.enabled ? local.tenant : ""
 }
 
-output "environment" {
-  value       = local.enabled ? local.environment : ""
+output "region" {
+  value       = local.enabled ? local.region : ""
 }
 
 output "name" {

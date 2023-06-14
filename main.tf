@@ -1,6 +1,6 @@
 locals {
   defaults = {
-    label_order         = ["namespace", "environment", "stage", "name", "attributes"]
+    label_order         = ["company", "region", "stage", "name", "attributes"]
     regex_replace_chars = "/[^-a-zA-Z0-9]/"
     delimiter           = "-"
     replacement         = ""
@@ -18,9 +18,9 @@ locals {
 
   input = {
     enabled   = var.enabled == null ? var.context.enabled : var.enabled
-    namespace = var.namespace == null ? var.context.namespace : var.namespace
+    company = var.company == null ? var.context.company : var.company
     tenant      = var.tenant == null ? lookup(var.context, "tenant", null) : var.tenant
-    environment = var.environment == null ? var.context.environment : var.environment
+    region = var.region == null ? var.context.region : var.region
     stage       = var.stage == null ? var.context.stage : var.stage
     name        = var.name == null ? var.context.name : var.name
     delimiter   = var.delimiter == null ? var.context.delimiter : var.delimiter
@@ -41,7 +41,7 @@ locals {
 
   enabled             = local.input.enabled
   regex_replace_chars = coalesce(local.input.regex_replace_chars, local.defaults.regex_replace_chars)
-  string_label_names = ["namespace", "tenant", "environment", "stage", "name"]
+  string_label_names = ["company", "tenant", "region", "stage", "name"]
   normalized_labels = { for k in local.string_label_names : k =>
     local.input[k] == null ? "" : replace(local.input[k], local.regex_replace_chars, local.replacement)
   }
@@ -58,9 +58,9 @@ locals {
     local.label_value_case == "upper" ? upper(v) : lower(v))
   ]))
 
-  namespace   = local.formatted_labels["namespace"]
+  company   = local.formatted_labels["company"]
   tenant      = local.formatted_labels["tenant"]
-  environment = local.formatted_labels["environment"]
+  region = local.formatted_labels["region"]
   stage       = local.formatted_labels["stage"]
   name        = local.formatted_labels["name"]
 
@@ -85,9 +85,9 @@ locals {
   ])
 
   tags_context = {
-    namespace   = local.namespace
+    company   = local.company
     tenant      = local.tenant
-    environment = local.environment
+    region = local.region
     stage       = local.stage
     name        = local.id
     attributes  = local.id_context.attributes
@@ -101,9 +101,9 @@ locals {
   }
 
   id_context = {
-    namespace   = local.namespace
+    company   = local.company
     tenant      = local.tenant
-    environment = local.environment
+    region = local.region
     stage       = local.stage
     name        = local.name
     attributes  = join(local.delimiter, local.attributes)
@@ -126,9 +126,9 @@ locals {
 
   output_context = {
     enabled             = local.enabled
-    namespace           = local.namespace
+    company           = local.company
     tenant              = local.tenant
-    environment         = local.environment
+    region         = local.region
     stage               = local.stage
     name                = local.name
     delimiter           = local.delimiter
